@@ -7,40 +7,38 @@ interface HeaderProps {
 
 export default function Header({ theme, toggleTheme }: HeaderProps) {
   return (
-    <header className="max-w-7xl mx-auto text-center flex flex-col items-center mb-8 md:mb-12 border-b border-fifa-border pb-8 md:pb-10 relative">
+    <header className="max-w-7xl mx-auto text-center flex flex-col items-center mb-10 md:mb-16 border-b border-fifa-border pb-10 md:pb-16 relative">
       {/* Theme Toggle Button */}
       <button
         onClick={toggleTheme}
-        className="absolute top-0 right-0 p-2 md:p-3 rounded-full bg-fifa-card border border-fifa-border text-xl md:text-2xl hover:border-fifa-primary transition-colors shadow-sm"
-        title="Toggle Theme"
+        className="absolute top-0 right-0 p-3 rounded-full bg-fifa-card border border-fifa-border hover:border-fifa-primary transition-all duration-300 shadow-sm"
       >
         {theme === "day" ? "🌙" : "☀️"}
       </button>
 
-      {/* Main Logo Image */}
-      <div className="relative mb-6">
-        <div className="relative w-24 h-24 md:w-36 md:h-36 rounded-full overflow-hidden shadow-2xl border-4 border-fifa-card bg-fifa-card">
+      {/* Hero Logo Container */}
+      <div className="relative group mb-8 transition-transform duration-500 hover:scale-[1.02]">
+        {/* Soft Glow Effect */}
+        <div className="absolute inset-0 bg-fifa-primary blur-[60px] opacity-20 rounded-full"></div>
+
+        {/* Image Container - No Circle, just clean display */}
+        <div className="relative w-48 h-24 md:w-80 md:h-40">
           <Image
             src="/logo.png"
-            alt="FIFA World Cup 26 Logo"
+            alt="World Cup 26 Logo"
             fill
-            sizes="(max-width: 768px) 96px, 144px"
-            className="object-cover"
+            className="object-contain drop-shadow-2xl"
             priority
           />
-        </div>
-
-        <div className="absolute -bottom-1 -right-1 md:-bottom-2 md:-right-2 bg-fifa-primary text-white w-8 h-8 md:w-12 md:h-12 rounded-full flex items-center justify-center shadow-lg text-sm md:text-2xl">
-          ⚽
         </div>
       </div>
 
       {/* Updated Branding */}
-      <div className="space-y-1">
-        <p className="text-[10px] md:text-xs font-black uppercase tracking-[0.4em] text-fifa-primary">
-          Official Tournament Sweepstake
-        </p>
-        <h1 className="text-4xl md:text-8xl font-black uppercase tracking-tighter text-fifa-dark italic">
+      <div className="space-y-2">
+        <span className="inline-block py-1 px-4 rounded-full bg-fifa-primary/10 text-fifa-primary text-[10px] md:text-xs font-black uppercase tracking-[0.3em]">
+          Official Sweepstake Simulator
+        </span>
+        <h1 className="text-5xl md:text-9xl font-black uppercase tracking-tighter text-fifa-dark italic">
           World Cup <span className="text-fifa-accent">&apos;26</span>
         </h1>
       </div>
