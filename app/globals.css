@@ -1,26 +1,46 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
+  /* Default Theme: Daytime Pitch */
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --fifa-primary: #00cfb5;
+    --fifa-secondary: #008775;
+    --fifa-accent: #0076f4;
+    --fifa-dark: #0b132b;
+    --fifa-light: #f4f7f6;
+    --fifa-card: #ffffff;
+    --fifa-border: #e2e8f0; /* slate-200 */
+    --fifa-muted: #64748b; /* slate-500 */
+    --fifa-input: #f4f7f6;
+  }
+
+  /* Dark Theme: Midnight Neon */
+  [data-theme="neon"] {
+    --fifa-primary: #ff004c;
+    --fifa-secondary: #00f0ff;
+    --fifa-accent: #9b00e8;
+    --fifa-dark: #ffffff;
+    --fifa-light: #000000;
+    --fifa-card: #111111;
+    --fifa-border: #27272a; /* zinc-800 */
+    --fifa-muted: #a1a1aa; /* zinc-400 */
+    --fifa-input: #000000;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--fifa-border);
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--fifa-primary);
 }
