@@ -3,8 +3,8 @@
 import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import SquadSetup from "./components/SquadSetup";
-import ResultsPanel from "./components/ResultsPanel";
 import { useSweepstake } from "./hooks/useSweepstake";
+import ResultsPanel from "./components/ResultsPanel";
 
 export default function SweeperApp() {
   const [theme, setTheme] = useState("day");
