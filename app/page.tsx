@@ -23,14 +23,28 @@ export default function SweeperApp() {
   };
 
   const [mounted, setMounted] = useState(false);
-  // eslint-disable-next-line react-hooks/set-state-in-effect
-  useEffect(() => setMounted(true), []);
-  if (!mounted) {
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
     console.info(
       "%cWho is gonna win? %cScotland 🏴󠁧󠁢󠁳󠁣󠁴󠁿",
       "font-weight: normal; font-size: 1em; color:rgb(9, 73, 41);",
       "font-weight: bold; color:rgb(0, 31, 231);"
     );
+  }, []);
+
+  const [isDrawing, setIsDrawing] = useState(false);
+
+  const handleStartDraw = () => {
+    setIsDrawing(true);
+    setTimeout(() => {
+      generateSweepstake();
+      setIsDrawing(false);
+    }, 3000);
+  };
+
+  if (!mounted) {
     return null;
   }
 
@@ -48,12 +62,12 @@ export default function SweeperApp() {
             error={error}
             onAdd={addParticipant}
             onRemove={removeParticipant}
-            onGenerate={generateSweepstake}
+            onGenerate={handleStartDraw}
           />
         </div>
 
         <div className="md:col-span-8">
-          <ResultsPanel results={results} />
+          <ResultsPanel results={results} isDrawing={isDrawing} />
         </div>
       </main>
     </div>
