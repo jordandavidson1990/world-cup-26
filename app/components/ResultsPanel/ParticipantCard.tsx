@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { SweepstakeResult } from "../../types";
 import TeamItem from "./TeamItem";
 
@@ -6,8 +7,21 @@ interface ParticipantCardProps {
 }
 
 export default function ParticipantCard({ result }: ParticipantCardProps) {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsMounted(true);
+  }, []);
+
   return (
-    <div className="bg-fifa-card border border-fifa-border p-6 rounded-2xl shadow-sm hover:shadow-lg hover:border-fifa-primary/50 transition-all duration-300 transform hover:-translate-y-1 group">
+    <div
+      className={`bg-fifa-card border border-fifa-border p-6 rounded-2xl shadow-sm hover:shadow-lg hover:border-fifa-primary/50 rounded-2xl transition-all duration-700 ease-out transform group ${
+        isMounted
+          ? "opacity-100 translate-y-0 scale-100"
+          : "opacity-0 translate-y-4 scale-95"
+      }`}
+    >
       <div className="flex justify-between items-center mb-5 pb-3 border-b border-fifa-border">
         <h3 className="font-extrabold text-xl text-fifa-dark group-hover:text-fifa-primary transition-colors uppercase tracking-wide">
           {result.participant}

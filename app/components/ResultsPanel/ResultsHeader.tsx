@@ -5,7 +5,7 @@ export default function ResultsHeader() {
         🌍
       </div>
       <h2 className="text-2xl font-extrabold uppercase tracking-tight text-fifa-dark transition-colors duration-300">
-        Final Group Allocations
+        Final Team Allocations
       </h2>
     </div>
   );
