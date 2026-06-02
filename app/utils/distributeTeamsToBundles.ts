@@ -9,20 +9,23 @@ export const distributeTeamsToBundles = (
   const sortedTeams = [...teams].sort((a, b) => a.rank - b.rank);
 
   const pots: Team[][] = [
-    shuffleArray(sortedTeams.slice(0, potSize)), // Pot 1 (Top Tier)
-    shuffleArray(sortedTeams.slice(potSize, potSize * 2)), // Pot 2 (Upper-Mid)
-    shuffleArray(sortedTeams.slice(potSize * 2, potSize * 3)), // Pot 3 (Lower-Mid)
-    shuffleArray(sortedTeams.slice(potSize * 3, potSize * 4)), // Pot 4 (Outsiders)
+    shuffleArray(sortedTeams.slice(0, potSize)),
+    shuffleArray(sortedTeams.slice(potSize, potSize * 2)),
+    shuffleArray(sortedTeams.slice(potSize * 2, potSize * 3)),
+    shuffleArray(sortedTeams.slice(potSize * 3, potSize * 4)),
   ];
 
-  // Initialize empty array bundles for each participant
   const bundles: Team[][] = Array.from({ length: numParticipants }, () => []);
 
-  // Round-robin distribution across all pots sequentially to guarantee fairness
+  // NEW: A continuous counter that DOES NOT reset per pot
+  let teamCounter = 0;
+
   pots.forEach((pot) => {
-    pot.forEach((team, index) => {
-      const bundleIndex = index % numParticipants;
+    pot.forEach((team) => {
+      // Use the global counter to ensure "overspill" moves to the next person
+      const bundleIndex = teamCounter % numParticipants;
       bundles[bundleIndex].push(team);
+      teamCounter++;
     });
   });
 
