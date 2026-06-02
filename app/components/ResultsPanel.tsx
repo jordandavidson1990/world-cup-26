@@ -49,6 +49,12 @@ export default function ResultsPanel({ results }: ResultsPanelProps) {
                       {team.flag}
                     </span>
                     <span className="flex-1 font-semibold">{team.name}</span>
+
+                    {/* Add the Rank badge here */}
+                    <span className="text-[10px] font-black text-fifa-secondary bg-fifa-primary/10 px-2 py-0.5 rounded opacity-70 group-hover:opacity-100 transition-opacity">
+                      Rank: {team.rank}
+                    </span>
+
                     <span className="text-fifa-primary opacity-0 group-hover:opacity-100 transition-opacity">
                       →
                     </span>
