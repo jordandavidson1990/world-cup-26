@@ -25,7 +25,14 @@ export default function SweeperApp() {
   const [mounted, setMounted] = useState(false);
   // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => setMounted(true), []);
-  if (!mounted) return null;
+  if (!mounted) {
+    console.info(
+      "%cWho is gonna win? %cScotland 🏴󠁧󠁢󠁳󠁣󠁴󠁿",
+      "font-weight: normal; font-size: 1em; color:rgb(9, 73, 41);",
+      "font-weight: bold; color:rgb(0, 31, 231);"
+    );
+    return null;
+  }
 
   return (
     <div
