@@ -1,31 +1,41 @@
 import { Team } from "../types";
 import { shuffleArray } from "./shuffleArray";
+import { calculateCapacities } from "./calculateCapacities";
+import { createPots } from "./createPots";
+import { determineTargetParticipant } from "./determineTargetParticipant";
+
+type DistributionOptions = {
+  potSize?: number;
+};
 
 export const distributeTeamsToBundles = (
   teams: Team[],
-  numParticipants: number
+  numParticipants: number,
+  options: DistributionOptions = {}
 ): Team[][] => {
-  const potSize = 12;
-  const sortedTeams = [...teams].sort((a, b) => a.rank - b.rank);
+  const { potSize = 12 } = options;
 
-  const pots: Team[][] = [
-    shuffleArray(sortedTeams.slice(0, potSize)),
-    shuffleArray(sortedTeams.slice(potSize, potSize * 2)),
-    shuffleArray(sortedTeams.slice(potSize * 2, potSize * 3)),
-    shuffleArray(sortedTeams.slice(potSize * 3, potSize * 4)),
-  ];
-
+  const pots = createPots(teams, potSize);
+  const totalCapacities = calculateCapacities(teams.length, numParticipants);
   const bundles: Team[][] = Array.from({ length: numParticipants }, () => []);
-
-  // NEW: A continuous counter that DOES NOT reset per pot
-  let teamCounter = 0;
+  const participantIndices = Array.from(
+    { length: numParticipants },
+    (_, index) => index
+  );
 
   pots.forEach((pot) => {
+    const teamsAllocatedFromCurrentPot = Array(numParticipants).fill(0);
+
     pot.forEach((team) => {
-      // Use the global counter to ensure "overspill" moves to the next person
-      const bundleIndex = teamCounter % numParticipants;
-      bundles[bundleIndex].push(team);
-      teamCounter++;
+      const targetParticipantIndex = determineTargetParticipant(
+        participantIndices,
+        bundles,
+        totalCapacities,
+        teamsAllocatedFromCurrentPot
+      );
+
+      bundles[targetParticipantIndex].push(team);
+      teamsAllocatedFromCurrentPot[targetParticipantIndex]++;
     });
   });
 
