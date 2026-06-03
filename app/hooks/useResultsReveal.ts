@@ -1,10 +1,31 @@
 import { useState, useEffect, useRef } from "react";
 import { SweepstakeResult } from "../types";
 
+type RevealOptions = {
+  revealDelayMs?: number;
+};
+
+const scrollContainerToBottom = (container: HTMLDivElement | null): void => {
+  if (!container) return;
+  container.scrollTo({
+    top: container.scrollHeight,
+    behavior: "smooth",
+  });
+};
+
+const scrollWindowToBottom = (): void => {
+  window.scrollTo({
+    top: document.documentElement.scrollHeight,
+    behavior: "smooth",
+  });
+};
+
 export const useResultsReveal = (
   results: SweepstakeResult[],
-  isDrawing: boolean
+  isDrawing: boolean,
+  options: RevealOptions = {}
 ) => {
+  const { revealDelayMs = 1500 } = options;
   const [visibleCount, setVisibleCount] = useState(0);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -12,40 +33,34 @@ export const useResultsReveal = (
     if (isDrawing) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setVisibleCount(0);
-    } else if (results.length > 0 && visibleCount === 0) {
-      setVisibleCount(1);
+      return;
     }
-  }, [isDrawing, results, visibleCount]);
+
+    const hasTeamsToReveal = results.length > 0;
+    const hasRemainingReveals = visibleCount < results.length;
+
+    if (hasTeamsToReveal && hasRemainingReveals) {
+      const currentDelay = visibleCount === 0 ? 0 : revealDelayMs;
+
+      const revealTimer = setTimeout(() => {
+        setVisibleCount((previousCount) => previousCount + 1);
+      }, currentDelay);
+
+      return () => clearTimeout(revealTimer);
+    }
+  }, [isDrawing, results.length, visibleCount, revealDelayMs]);
 
   useEffect(() => {
-    if (
-      !isDrawing &&
-      results.length > 0 &&
-      visibleCount > 0 &&
-      visibleCount < results.length
-    ) {
-      const timer = setTimeout(() => {
-        setVisibleCount((prev) => prev + 1);
-      }, 1500);
-      return () => clearTimeout(timer);
-    }
-  }, [visibleCount, isDrawing, results.length]);
+    const hasVisibleCards = visibleCount > 0;
 
-  useEffect(() => {
-    if (scrollContainerRef.current && visibleCount > 0) {
-      scrollContainerRef.current.scrollTo({
-        top: scrollContainerRef.current.scrollHeight,
-        behavior: "smooth",
-      });
-
-      window.scrollTo({
-        top: document.documentElement.scrollHeight,
-        behavior: "smooth",
-      });
+    if (hasVisibleCards) {
+      scrollContainerToBottom(scrollContainerRef.current);
+      scrollWindowToBottom();
     }
   }, [visibleCount]);
 
-  const isRevealComplete = visibleCount === results.length;
+  const isRevealComplete =
+    results.length > 0 && visibleCount === results.length;
 
   return {
     visibleCount,
