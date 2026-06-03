@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { SweepstakeResult } from "../../types";
-import TeamItem from "./TeamItem";
+import { TeamItem } from "./TeamItem";
 
-interface ParticipantCardProps {
+type ParticipantCardProps = {
   result: SweepstakeResult;
-}
+};
 
-export default function ParticipantCard({ result }: ParticipantCardProps) {
+export const ParticipantCard = ({ result }: ParticipantCardProps) => {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -38,4 +38,4 @@ export default function ParticipantCard({ result }: ParticipantCardProps) {
       </ul>
     </div>
   );
-}
+};

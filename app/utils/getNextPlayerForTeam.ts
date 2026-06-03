@@ -1,37 +1,62 @@
 import { Team } from "../types";
 
+const getPlayersWithRemainingCapacity = (
+  playerIndices: number[],
+  playerTeams: Team[][],
+  playerQuotas: number[]
+): number[] => {
+  return playerIndices.filter((index) => {
+    const currentTeamCount = playerTeams[index].length;
+    const maxAllowedQuota = playerQuotas[index];
+
+    return currentTeamCount < maxAllowedQuota;
+  });
+};
+
+const sortPlayersByDraftPriority = (
+  eligibleIndices: number[],
+  playerTeams: Team[][],
+  playerQuotas: number[],
+  potAllocations: number[]
+): void => {
+  eligibleIndices.sort((playerA, playerB) => {
+    const potCountA = potAllocations[playerA];
+    const potCountB = potAllocations[playerB];
+    if (potCountA !== potCountB) {
+      return potCountA - potCountB;
+    }
+
+    const quotaA = playerQuotas[playerA];
+    const quotaB = playerQuotas[playerB];
+    if (quotaA !== quotaB) {
+      return quotaA - quotaB;
+    }
+
+    const totalTeamsA = playerTeams[playerA].length;
+    const totalTeamsB = playerTeams[playerB].length;
+    return totalTeamsA - totalTeamsB;
+  });
+};
+
 export const getNextPlayerForTeam = (
-  participantIndices: number[],
-  bundles: Team[][],
-  totalCapacities: number[],
-  teamsAllocatedFromCurrentPot: number[]
+  playerIndices: number[],
+  playerTeams: Team[][],
+  playerQuotas: number[],
+  potAllocations: number[]
 ): number => {
-  const eligibleIndices = participantIndices.filter((index) => {
-    const hasRemainingCapacity = bundles[index].length < totalCapacities[index];
-    return hasRemainingCapacity;
-  });
+  const eligiblePlayers = getPlayersWithRemainingCapacity(
+    playerIndices,
+    playerTeams,
+    playerQuotas
+  );
 
-  eligibleIndices.sort((indexA, indexB) => {
-    const currentPotCountA = teamsAllocatedFromCurrentPot[indexA];
-    const currentPotCountB = teamsAllocatedFromCurrentPot[indexB];
-    const potAllocationsDiffer = currentPotCountA !== currentPotCountB;
+  sortPlayersByDraftPriority(
+    eligiblePlayers,
+    playerTeams,
+    playerQuotas,
+    potAllocations
+  );
 
-    if (potAllocationsDiffer) {
-      return currentPotCountA - currentPotCountB;
-    }
-
-    const totalCapacityA = totalCapacities[indexA];
-    const totalCapacityB = totalCapacities[indexB];
-    const totalCapacitiesDiffer = totalCapacityA !== totalCapacityB;
-
-    if (totalCapacitiesDiffer) {
-      return totalCapacityA - totalCapacityB;
-    }
-
-    const overallLengthA = bundles[indexA].length;
-    const overallLengthB = bundles[indexB].length;
-    return overallLengthA - overallLengthB;
-  });
-
-  return eligibleIndices[0];
+  const bestMatchingPlayerIndex = eligiblePlayers[0];
+  return bestMatchingPlayerIndex;
 };

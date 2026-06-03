@@ -10,6 +10,7 @@ export const useResultsReveal = (
 
   useEffect(() => {
     if (isDrawing) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setVisibleCount(0);
     } else if (results.length > 0 && visibleCount === 0) {
       setVisibleCount(1);

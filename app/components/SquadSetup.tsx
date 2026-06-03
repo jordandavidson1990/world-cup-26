@@ -1,20 +1,20 @@
 import { useState } from "react";
 
-interface SquadSetupProps {
+type SquadSetupProps = {
   participants: string[];
   error: string;
   onAdd: (name: string) => boolean;
   onRemove: (name: string) => void;
   onGenerate: () => void;
-}
+};
 
-export default function SquadSetup({
+export const SquadSetup = ({
   participants,
   error,
   onAdd,
   onRemove,
   onGenerate,
-}: SquadSetupProps) {
+}: SquadSetupProps) => {
   const [nameInput, setNameInput] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -100,4 +100,4 @@ export default function SquadSetup({
       </button>
     </section>
   );
-}
+};

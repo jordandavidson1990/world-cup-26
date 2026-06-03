@@ -1,7 +1,7 @@
 import { Team } from "../types";
 import {
+  allocateTeamsFromPot,
   calculatePlayerQuotas,
-  getNextPlayerForTeam,
   groupTeamsIntoPots,
   shuffleArray,
 } from ".";
@@ -12,34 +12,22 @@ type DistributionOptions = {
 
 export const distributeTeamsToPlayers = (
   teams: Team[],
-  numParticipants: number,
+  numPlayers: number,
   options: DistributionOptions = {}
 ): Team[][] => {
   const { potSize = 12 } = options;
 
   const pots = groupTeamsIntoPots(teams, potSize);
-  const totalCapacities = calculatePlayerQuotas(teams.length, numParticipants);
-  const bundles: Team[][] = Array.from({ length: numParticipants }, () => []);
-  const participantIndices = Array.from(
-    { length: numParticipants },
-    (_, index) => index
-  );
+  const playerQuotas = calculatePlayerQuotas(teams.length, numPlayers);
+
+  const playerTeams: Team[][] = Array.from({ length: numPlayers }, () => []);
+  const playerIndices = Array.from({ length: numPlayers }, (_, index) => index);
 
   pots.forEach((pot) => {
-    const teamsAllocatedFromCurrentPot = Array(numParticipants).fill(0);
-
-    pot.forEach((team) => {
-      const targetParticipantIndex = getNextPlayerForTeam(
-        participantIndices,
-        bundles,
-        totalCapacities,
-        teamsAllocatedFromCurrentPot
-      );
-
-      bundles[targetParticipantIndex].push(team);
-      teamsAllocatedFromCurrentPot[targetParticipantIndex]++;
-    });
+    allocateTeamsFromPot(pot, playerIndices, playerTeams, playerQuotas);
   });
 
-  return shuffleArray(bundles);
+  const shuffledPlayerTeams = shuffleArray(playerTeams);
+
+  return shuffledPlayerTeams;
 };

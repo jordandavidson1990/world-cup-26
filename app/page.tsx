@@ -1,11 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Header from "./components/Header";
-import SquadSetup from "./components/SquadSetup";
-import ResultsPanel from "./components/ResultsPanel";
-import Footer from "./components/Footer";
+
 import { useSweepstake } from "./hooks/useSweepstake";
+import { Footer, Header, SquadSetup } from "./components";
+import ResultsPanel from "./components/ResultsPanel/ResultsPanel";
 
 export default function SweeperApp() {
   const [theme, setTheme] = useState("day");
@@ -26,6 +25,7 @@ export default function SweeperApp() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
     console.info(
       "%cWho is gonna win? %cScotland 🏴%c󠁢󠁳󠁣󠁴󠁿",
