@@ -6,7 +6,7 @@ An interactive, balanced team shuffler built to run World Cup 2026 randomiser.
 
 ![Homepage screenshot](./public/homepage.png)
 
-⚙️ Getting Started
+### ⚙️ Getting Started
 
 #### 1. Installation
 
@@ -36,5 +36,6 @@ Run the test suite to verify the distribution logic and text formatting:
 npm test
 ```
 
-🌐 Deployment
+### 🌐 Deployment
+
 This app is configured for automatic deployment on Vercel. You can check out the live production build at: https://world-cup-26-jd.vercel.app/
