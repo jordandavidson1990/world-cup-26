@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { SweepstakeResult } from "../types";
 import { WORLD_CUP_TEAMS } from "../constants/teams";
-import { distributeTeamsToBundles } from "../utils/distributeTeamsToBundles";
+import { distributeTeamsToPlayers } from "../utils";
 
 export const useSweepstake = () => {
   const [participants, setParticipants] = useState<string[]>([]);
@@ -40,7 +40,7 @@ export const useSweepstake = () => {
     }
 
     // Call the isolated utility allocation logic
-    const balancedBundles = distributeTeamsToBundles(
+    const balancedBundles = distributeTeamsToPlayers(
       WORLD_CUP_TEAMS,
       numParticipants
     );

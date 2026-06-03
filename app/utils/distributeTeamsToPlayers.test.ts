@@ -1,7 +1,7 @@
-import { distributeTeamsToBundles } from "./distributeTeamsToBundles";
+import { distributeTeamsToPlayers } from "./distributeTeamsToPlayers";
 import { Team } from "../types";
 
-describe("distributeTeamsToBundles", () => {
+describe("distributeTeamsToPlayers", () => {
   const mockTeams: Team[] = Array.from({ length: 46 }, (_, i) => ({
     name: `Team ${i + 1}`,
     rank: i + 1,
@@ -9,7 +9,7 @@ describe("distributeTeamsToBundles", () => {
   }));
 
   test("distributes total entities matches cumulative output quantities", () => {
-    const result = distributeTeamsToBundles(mockTeams, 4);
+    const result = distributeTeamsToPlayers(mockTeams, 4);
     const totalDistributed = result.reduce(
       (sum, bundle) => sum + bundle.length,
       0
@@ -19,7 +19,7 @@ describe("distributeTeamsToBundles", () => {
   });
 
   test("gives lower capacity bundle slots explicit priority on top seeded ranks", () => {
-    const result = distributeTeamsToBundles(mockTeams, 4);
+    const result = distributeTeamsToPlayers(mockTeams, 4);
 
     const smallBundles = result.filter((b) => b.length === 11);
     const largeBundles = result.filter((b) => b.length === 12);

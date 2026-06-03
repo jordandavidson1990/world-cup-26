@@ -1,6 +1,6 @@
 import { Team } from "../types";
 
-export const determineTargetParticipant = (
+export const getNextPlayerForTeam = (
   participantIndices: number[],
   bundles: Team[][],
   totalCapacities: number[],

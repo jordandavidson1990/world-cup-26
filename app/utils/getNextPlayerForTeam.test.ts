@@ -1,7 +1,7 @@
 import { Team } from "../types";
-import { determineTargetParticipant } from "./determineTargetParticipant";
+import { getNextPlayerForTeam } from "./getNextPlayerForTeam";
 
-describe("determineTargetParticipant", () => {
+describe("getNextPlayerForTeam", () => {
   const mockTeam: Team = { name: "Test Team", rank: 1, flag: "⚽" };
 
   test("filters out participants at maximum capacity", () => {
@@ -10,7 +10,7 @@ describe("determineTargetParticipant", () => {
     const totalCapacities = [1, 2];
     const teamsAllocatedFromCurrentPot = [0, 0];
 
-    const result = determineTargetParticipant(
+    const result = getNextPlayerForTeam(
       participantIndices,
       bundles,
       totalCapacities,
@@ -26,7 +26,7 @@ describe("determineTargetParticipant", () => {
     const totalCapacities = [2, 2];
     const teamsAllocatedFromCurrentPot = [1, 0];
 
-    const result = determineTargetParticipant(
+    const result = getNextPlayerForTeam(
       participantIndices,
       bundles,
       totalCapacities,
@@ -42,7 +42,7 @@ describe("determineTargetParticipant", () => {
     const totalCapacities = [3, 2];
     const teamsAllocatedFromCurrentPot = [0, 0];
 
-    const result = determineTargetParticipant(
+    const result = getNextPlayerForTeam(
       participantIndices,
       bundles,
       totalCapacities,

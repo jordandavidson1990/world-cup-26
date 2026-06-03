@@ -1,4 +1,4 @@
-export const calculateCapacities = (
+export const calculatePlayerQuotas = (
   totalTeams: number,
   numParticipants: number
 ): number[] => {
