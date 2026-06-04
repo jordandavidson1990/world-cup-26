@@ -13,10 +13,35 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "World Cup 2026 Sweepers 🏆",
-  description: "World cup sweeper for the 2026 FIFA World Cup",
+  title: "World Cup 2026 Sweeper 🏆",
+  description:
+    "Run fair and balanced tournament sweepstakes with your friends.",
+  metadataBase: new URL("https://world-cup-26-jd.vercel.app"),
+  openGraph: {
+    title: "World Cup 2026 Sweeper",
+    description:
+      "Run fair and balanced tournament sweepstakes with your friends.",
+    url: "https://world-cup-26-jd.vercel.app",
+    siteName: "World Cup Sweeper",
+    images: [
+      {
+        url: "/og-image.png", // Put this image in your public/ folder
+        width: 1200,
+        height: 630,
+        alt: "World Cup Sweeper App Preview",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "World Cup 2026 Sweeper",
+    description:
+      "Run fair and balanced tournament sweepstakes with your friends.",
+    images: ["/og-image.png"],
+  },
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{
