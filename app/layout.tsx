@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     siteName: "World Cup Sweeper",
     images: [
       {
-        url: "/og-image.png", // Put this image in your public/ folder
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "World Cup Sweeper App Preview",

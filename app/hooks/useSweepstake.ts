@@ -39,13 +39,11 @@ export const useSweepstake = () => {
       return;
     }
 
-    // Call the isolated utility allocation logic
     const balancedBundles = distributeTeamsToPlayers(
       WORLD_CUP_TEAMS,
       numParticipants
     );
 
-    // Map the distributed bundles directly back to the active participants list
     const newResults: SweepstakeResult[] = participants.map(
       (participant, index) => ({
         participant,
