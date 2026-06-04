@@ -41,7 +41,7 @@ export default function SweeperApp() {
     setTimeout(() => {
       generateSweepstake();
       setIsDrawing(false);
-    }, 3000);
+    }, 5000);
   };
 
   if (!mounted) {
