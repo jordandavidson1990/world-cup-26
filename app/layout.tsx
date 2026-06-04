@@ -15,13 +15,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "World Cup 2026 Sweeper 🏆",
-  description:
-    "Run fair and balanced tournament sweepstakes with your friends.",
+  description: "Randomiser for World Cup '26 teams.",
   metadataBase: new URL("https://world-cup-26-jd.vercel.app"),
   openGraph: {
     title: "World Cup 2026 Sweeper",
-    description:
-      "Run fair and balanced tournament sweepstakes with your friends.",
+    description: "Randomiser for World Cup '26 teams.",
     url: "https://world-cup-26-jd.vercel.app",
     siteName: "World Cup Sweeper",
     images: [
@@ -38,8 +36,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "World Cup 2026 Sweeper",
-    description:
-      "Run fair and balanced tournament sweepstakes with your friends.",
+    description: "Randomiser for World Cup '26 teams.",
     images: ["/og-image.png"],
   },
 };
