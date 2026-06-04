@@ -25,7 +25,7 @@ export const useResultsReveal = (
   isDrawing: boolean,
   options: RevealOptions = {}
 ) => {
-  const { revealDelayMs = 1800 } = options;
+  const { revealDelayMs = 2200 } = options;
   const [visibleCount, setVisibleCount] = useState(0);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
