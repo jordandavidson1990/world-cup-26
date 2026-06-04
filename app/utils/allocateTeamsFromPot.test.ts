@@ -1,7 +1,7 @@
 import { Team } from "../types";
 import { allocateTeamsFromPot, getNextPlayerForTeam } from ".";
 
-jest.mock("../getNextPlayerForTeam");
+jest.mock("./getNextPlayerForTeam");
 
 describe("allocateTeamsFromPot", () => {
   const mockGetNextPlayer = getNextPlayerForTeam as jest.MockedFunction<

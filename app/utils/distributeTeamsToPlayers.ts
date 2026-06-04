@@ -21,10 +21,23 @@ export const distributeTeamsToPlayers = (
   const playerQuotas = calculatePlayerQuotas(teams.length, numPlayers);
 
   const playerTeams: Team[][] = Array.from({ length: numPlayers }, () => []);
-  const playerIndices = Array.from({ length: numPlayers }, (_, index) => index);
+
+  const sequentialIndices = Array.from(
+    { length: numPlayers },
+    (_, index) => index
+  );
+
+  const shuffledPlayerIndices = shuffleArray(sequentialIndices);
 
   pots.forEach((pot) => {
-    allocateTeamsFromPot(pot, playerIndices, playerTeams, playerQuotas);
+    const randomizedPot = shuffleArray(pot);
+
+    allocateTeamsFromPot(
+      randomizedPot,
+      shuffledPlayerIndices,
+      playerTeams,
+      playerQuotas
+    );
   });
 
   const shuffledPlayerTeams = shuffleArray(playerTeams);

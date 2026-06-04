@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { SweepstakeResult } from "../types";
 import { WORLD_CUP_TEAMS } from "../constants/teams";
-import { distributeTeamsToPlayers } from "../utils";
+import { distributeTeamsToPlayers, shuffleArray } from "../utils";
 
 export const useSweepstake = () => {
   const [participants, setParticipants] = useState<string[]>([]);
@@ -51,7 +51,7 @@ export const useSweepstake = () => {
       })
     );
 
-    setResults(newResults);
+    setResults(shuffleArray(newResults));
     setError("");
   };
 
